@@ -31,7 +31,7 @@ Just look at the file to see which functions are tested. Every line of code shou
 # DEPLOYMENT CONSIDERATIONS
 
 Date functions are often used across different projects, so I will consider putting this in a separate module, either as a project, static library, or embedded framework.
-Even prefix is not strictly required when coding in Swift, I still use prefix (especially in library), since it makes it clear which API comes from which framework. Not a big deal tho.
+Thought prefix is not strictly required when coding in Swift, I still use prefix (especially in library), since it makes it clear which API comes from which framework. Not a big deal.
 
 Tests belong to a different target, and can be built separately from the main project.
 
