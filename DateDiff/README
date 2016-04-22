@@ -2,7 +2,7 @@
 
 Open the project in XCode 7.0+
 Run on simulator or devices
-Results are printed on Output console (as a bunch of tests)
+Use CMD + U to run all the tests
 
 
 # PROJECT STRUCTURE
