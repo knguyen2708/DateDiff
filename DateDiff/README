@@ -1,0 +1,46 @@
+# HOW TO RUN
+
+Open the project in XCode 7.0+
+Run on simulator or devices
+Results are printed on Output console (as a bunch of tests)
+
+
+# PROJECT STRUCTURE
+
+The main functional classes are in KNDate
+
+'App' folder contains UI-related code
+    ViewController.* contains the main view controller
+    CalendarViewController.* contains the calendar (date picker) view controller
+
+'UIKit+' folder contains some UI utils
+
+'KNDate' folder contains main date functions
+    KNDate.swift contains KNDate class
+    KNDate+Utils.swift contains extension of KNDate, which include `differenceInDays(fromDate:toDate:)` which was asked for by the task.
+    KNError.swift contains KNError, which represents an error related to KNDate functions
+
+
+# TESTS
+
+Tests are in Tests.swift (implemented using XCTests. Use CMD + U to run all the tests.)
+
+Just look at the file to see which functions are tested. Every line of code should be covered.
+
+
+# DEPLOYMENT CONSIDERATIONS
+
+Date functions are often used across different projects, so I will consider putting this in a separate module, either as a project, static library, or embedded framework.
+Even prefix is not strictly required when coding in Swift, I still use prefix (especially in library), since it makes it clear which API comes from which framework. Not a big deal tho.
+
+Tests belong to a different target, and can be built separately from the main project.
+
+
+# CI CONSIDERATIONS
+
+Project is automatically built and tests are automatically run after every commit, or frequently (hourly, dayly, weekly).
+Tests in KNDate_Tests can be converted into automated test (using XCTest, or similar frameworks) and configured to be run frequently.
+
+
+
+
