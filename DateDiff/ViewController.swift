@@ -28,8 +28,8 @@ class ViewController: UIViewController, CalendarViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fromView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "fromTapped"))
-        toView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "toTapped"))
+        fromView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(fromTapped)))
+        toView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toTapped)))
         
         syncDates()
     }

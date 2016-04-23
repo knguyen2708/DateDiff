@@ -10,7 +10,6 @@
 		7377D6571C9AA8DE005BF7AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377D6561C9AA8DE005BF7AB /* AppDelegate.swift */; };
 		7377D6691C9AAA52005BF7AB /* KNDate+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377D6681C9AAA52005BF7AB /* KNDate+Utils.swift */; };
 		7377D66D1C9AAD5D005BF7AB /* KNDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377D66C1C9AAD5D005BF7AB /* KNDate.swift */; };
-		7377D6721C9ACA36005BF7AB /* README in Resources */ = {isa = PBXBuildFile; fileRef = 7377D6711C9ACA36005BF7AB /* README */; };
 		73963BAF1CC604F700567DE3 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73963BAE1CC604F700567DE3 /* Tests.swift */; };
 		73963BB71CC6080300567DE3 /* KNError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73963BB61CC6080300567DE3 /* KNError.swift */; };
 		73963BBA1CC669FA00567DE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73963BB81CC669FA00567DE3 /* ViewController.swift */; };
@@ -22,6 +21,7 @@
 		73963BCA1CC67A8700567DE3 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73963BC81CC67A8700567DE3 /* CalendarViewController.xib */; };
 		73963BCC1CC6801F00567DE3 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73963BCB1CC6801F00567DE3 /* UIColor+.swift */; };
 		73963BCE1CC68BD800567DE3 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73963BCD1CC68BD800567DE3 /* UIFont+.swift */; };
+		739B558D1CCB920F00D49A45 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 739B558C1CCB920F00D49A45 /* README */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +40,6 @@
 		7377D6621C9AA8DF005BF7AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = DateDiff/Info.plist; sourceTree = "<group>"; };
 		7377D6681C9AAA52005BF7AB /* KNDate+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KNDate+Utils.swift"; path = "DateDiff/KNDate+Utils.swift"; sourceTree = SOURCE_ROOT; };
 		7377D66C1C9AAD5D005BF7AB /* KNDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KNDate.swift; path = DateDiff/KNDate.swift; sourceTree = SOURCE_ROOT; };
-		7377D6711C9ACA36005BF7AB /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = DateDiff/README; sourceTree = SOURCE_ROOT; };
 		73963BAC1CC604F700567DE3 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73963BAE1CC604F700567DE3 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		73963BB01CC604F700567DE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +53,7 @@
 		73963BC81CC67A8700567DE3 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CalendarViewController.xib; path = DateDiff/CalendarViewController.xib; sourceTree = SOURCE_ROOT; };
 		73963BCB1CC6801F00567DE3 /* UIColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "DateDiff/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
 		73963BCD1CC68BD800567DE3 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIFont+.swift"; path = "DateDiff/UIFont+.swift"; sourceTree = SOURCE_ROOT; };
+		739B558C1CCB920F00D49A45 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +77,7 @@
 		7377D64A1C9AA8DE005BF7AB = {
 			isa = PBXGroup;
 			children = (
+				739B558C1CCB920F00D49A45 /* README */,
 				7377D6551C9AA8DE005BF7AB /* DateDiff */,
 				73963BC01CC6742300567DE3 /* Images */,
 				73963BAD1CC604F700567DE3 /* Tests */,
@@ -96,7 +97,6 @@
 		7377D6551C9AA8DE005BF7AB /* DateDiff */ = {
 			isa = PBXGroup;
 			children = (
-				7377D6711C9ACA36005BF7AB /* README */,
 				7377D6561C9AA8DE005BF7AB /* AppDelegate.swift */,
 				73963BC61CC67A6C00567DE3 /* App */,
 				73963BC11CC67A4900567DE3 /* UIKit+ */,
@@ -238,11 +238,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				739B558D1CCB920F00D49A45 /* README in Resources */,
 				73963BBD1CC66E4800567DE3 /* Images.xcassets in Resources */,
 				73963BCA1CC67A8700567DE3 /* CalendarViewController.xib in Resources */,
 				73963BBF1CC6742000567DE3 /* Default-568h@2x.png in Resources */,
 				73963BBB1CC669FA00567DE3 /* ViewController.xib in Resources */,
-				7377D6721C9ACA36005BF7AB /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
