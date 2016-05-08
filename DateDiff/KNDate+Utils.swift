@@ -18,44 +18,44 @@ extension KNDate {
      */
     static func differenceInDays(fromDate fromDate: KNDate, toDate: KNDate) throws -> Int {
         /*
-        Algorithm idea:
-        
-        + Find days of full year difference
-        e.g. between 20/10/1989 and 18/03/1992 there are full years: 1990 and 1991.
-        
-        + Find days of full month difference, after removing full years
-        e.g. between 20/10/1989 and 18/03/1992 there are full months: 11/1989, 12/1989, 1/1992, 2/1992
-        
-        + Count the days left, after removing full years and full months
-        e.g. between 20/10/1989 and 18/03/1992 there are these day ranges: 21/10/1989 - 31/10/1989 and 01/03/1992 - 18/03/1992
-        
-        Sum up the above 3 quantities (in fact, we just keep a count, and modify it).
-        Parameter checks (ie ensuring fromDate < toDate) are integrated into the flow.
-        
-        */
+         Algorithm idea:
+         
+         + Find days of full year difference
+         e.g. between 20/10/1989 and 18/03/1992 there are full years: 1990 and 1991.
+         
+         + Find days of full month difference, after removing full years
+         e.g. between 20/10/1989 and 18/03/1992 there are full months: 11/1989, 12/1989, 1/1992, 2/1992
+         
+         + Count the days left, after removing full years and full months
+         e.g. between 20/10/1989 and 18/03/1992 there are these day ranges: 21/10/1989 - 31/10/1989 and 01/03/1992 - 18/03/1992
+         
+         Sum up the above 3 quantities (in fact, we just keep a count, and modify it).
+         Parameter checks (ie ensuring fromDate < toDate) are integrated into the flow.
+         
+         */
         
         // Find days of full years
         var count: Int = 0
-        for var year = fromDate.year + 1; year <= toDate.year - 1; ++year {
+        for year in (fromDate.year + 1).stride(to: toDate.year - 1, by: 1) {
             count += KNDate.numberOfDaysInYear(year)
         }
         
         // Find days of full months
         if fromDate.year < toDate.year { // Different years
-
+            
             // Count full months in fromDate
-            for var month = fromDate.month + 1; month <= 12; ++month {
+            for month in (fromDate.month + 1).stride(to: 12, by: 1) {
                 count += KNDate.numberOfDaysInMonth(month, year: fromDate.year)
             }
             
             // Count full months in toDate
-            for var month = 1; month <= toDate.month - 1; ++month {
+            for month in 1.stride(to: toDate.month - 1, by: 1) {
                 count += KNDate.numberOfDaysInMonth(month, year: toDate.year)
             }
             
         } else if fromDate.year == toDate.year { // Same year
             // Count months in [fromDate.month + 1, toDate.month - 1]
-            for var month = fromDate.month + 1; month <= toDate.month - 1; ++month {
+            for month in (fromDate.month + 1).stride(to: toDate.month - 1, by: 1) {
                 count += KNDate.numberOfDaysInMonth(month, year: fromDate.year)
             }
             
@@ -71,7 +71,7 @@ extension KNDate {
             
             // Count days in [fromDate.day + 1, last day of fromDate.month]
             count += KNDate.numberOfDaysInMonth(fromDate.month, year: fromDate.year) - (fromDate.day + 1) + 1
-
+            
             // Count days in [1, toDate.day - 1]
             count += (toDate.day - 1) - 1 + 1
             
@@ -118,5 +118,5 @@ extension KNDate {
     static func isLeapYear(year: Int) -> Bool {
         return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
     }
-
+    
 }
