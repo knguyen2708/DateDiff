@@ -7,9 +7,8 @@
 //
 
 import XCTest
-import BCG_Test
 
-@testable import BCG_Test
+@testable import DateDiff
 
 class KNDate_Tests: XCTestCase {
     
@@ -82,17 +81,17 @@ class KNDate_Tests: XCTestCase {
     func testSampleData() throws {
         do {
             let (start, end) = ("02/06/1983", "22/06/1983")
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
 
         do {
             let (start, end) = ("04/08/1984", "25/12/1984") // This is 142, not 173 as claimed in the sample cases!
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
 
         do {
             let (start, end) = ("03/08/1983", "03/01/1989")
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
     }
     
@@ -104,66 +103,67 @@ class KNDate_Tests: XCTestCase {
     func testWhiteBoxCases() throws {
         do {
             let (start, end) = ("03/06/1950", "04/06/1950") // Next day
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
 
         do {
             let (start, end) = ("03/06/1950", "05/06/1950") // Same month
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
 
         do {
             let (start, end) = ("03/06/1949", "05/07/1950") // 1 month apart
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
 
         do {
             let (start, end) = ("31/12/1950", "01/01/1951") // Next year
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
 
         do {
             let (start, end) = ("31/12/1950", "01/01/1952") // 1 year apart
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
 
         do {
             let (start, end) = ("03/01/1952", "05/10/1952") // 10 month apart in a leap year, including Feb
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
 
         do {
             let (start, end) = ("03/06/1951", "05/07/1953") // 2 years apart, including leap year
-            XCTAssertEqual(try KNDate_count(start, end), try NSDate_count(start, end))
+            XCTAssertEqual(try KNDate_count(start, end), try SwiftDate_count(start, end))
         }
     }
     
     /**
      Shortcut to `KNDate.differenceInDays(fromDate:toDate:)` which takes two strings.
      */
-    private func KNDate_count(fromDateString: String, _ toDateString: String) throws -> Int {
-        return try KNDate.differenceInDays(fromDate: try KNDate(string: fromDateString), toDate: try KNDate(string: toDateString))
+    private func KNDate_count(_ fromDateString: String, _ toDateString: String) throws -> Int {
+        return try KNDate.differenceInDays(from: try KNDate(string: fromDateString), to: try KNDate(string: toDateString))
     }
     
     /**
      Count difference in days using `NSDate`.
      */
-    private func NSDate_count(fromDateString: String, _ toDateString: String) throws -> Int {
-        let fmt = NSDateFormatter()
+    private func SwiftDate_count(_ fromDateString: String, _ toDateString: String) throws -> Int {
+        let fmt = DateFormatter()
         fmt.dateFormat = "dd/MM/yyyy"
-        let fromDate = fmt.dateFromString(fromDateString)!
-        let toDate = fmt.dateFromString(toDateString)!
+        let fromDate = fmt.date(from: fromDateString)!
+        let toDate = fmt.date(from: toDateString)!
         
-        var optFromDateDay: NSDate?, optToDateDay: NSDate?
+        // var optFromDateDay: NSDate?, optToDateDay: NSDate?
         
-        let calendar = NSCalendar.currentCalendar()
-        calendar.rangeOfUnit(.Day, startDate: &optFromDateDay, interval: nil, forDate: fromDate)
-        calendar.rangeOfUnit(.Day, startDate: &optToDateDay, interval: nil, forDate: toDate)
+        let calendar = Calendar.current
+        // calendar.range(of: .day, startDate: &optFromDateDay, interval: nil, forDate: fromDate)
+        // calendar.range(of: .day, startDate: &optToDateDay, interval: nil, forDate: toDate)
         
-        guard let fromDateDay = optFromDateDay else { throw NSError(domain: "test", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid fromDateString"]) }
-        guard let toDateDay = optToDateDay else { throw NSError(domain: "test", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid toDateString"]) }
+        // guard let fromDateDay = optFromDateDay else { throw NSError(domain: "test", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid fromDateString"]) }
+        // guard let toDateDay = optToDateDay else { throw NSError(domain: "test", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid toDateString"]) }
         
-        let difference = calendar.components(.Day, fromDate: fromDateDay, toDate: toDateDay, options: [])
-        return difference.day - 1 // -1 due to the way NSDate calculate the difference
+        let days = calendar.dateComponents([.day], from: fromDate, to: toDate)
+        // let difference = calendar.components(.Day, fromDate: fromDateDay, toDate: toDateDay, options: [])
+        return days.day! - 1 // -1 due to the way NSDate calculate the difference
     }
 }
