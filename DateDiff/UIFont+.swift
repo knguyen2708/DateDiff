@@ -9,11 +9,11 @@
 import UIKit
 
 extension UIFont {
-    static func avenirNextMedimum(size size: CGFloat) -> UIFont {
+    static func avenirNextMedimum(size: CGFloat) -> UIFont {
         return UIFont(name: "AvenirNext-Medium", size: size)!
     }
     
-    static func avenirNextRegular(size size: CGFloat) -> UIFont {
+    static func avenirNextRegular(size: CGFloat) -> UIFont {
         return UIFont(name: "AvenirNext-Regular", size: size)!
     }
 }

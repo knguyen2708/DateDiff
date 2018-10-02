@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		735878AE1D14EB0E0001C9D0 /* Lab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735878AD1D14EB0E0001C9D0 /* Lab.swift */; };
 		7377D6571C9AA8DE005BF7AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377D6561C9AA8DE005BF7AB /* AppDelegate.swift */; };
 		7377D6691C9AAA52005BF7AB /* KNDate+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377D6681C9AAA52005BF7AB /* KNDate+Utils.swift */; };
 		7377D66D1C9AAD5D005BF7AB /* KNDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377D66C1C9AAD5D005BF7AB /* KNDate.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		735878AD1D14EB0E0001C9D0 /* Lab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lab.swift; path = DateDiff/Lab.swift; sourceTree = SOURCE_ROOT; };
 		7377D6531C9AA8DE005BF7AB /* DateDiff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DateDiff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7377D6561C9AA8DE005BF7AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = DateDiff/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		7377D6621C9AA8DF005BF7AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = DateDiff/Info.plist; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				7377D6561C9AA8DE005BF7AB /* AppDelegate.swift */,
+				735878AD1D14EB0E0001C9D0 /* Lab.swift */,
 				73963BC61CC67A6C00567DE3 /* App */,
 				73963BC11CC67A4900567DE3 /* UIKit+ */,
 				7377D66E1C9AAD88005BF7AB /* KNDate */,
@@ -202,11 +205,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = knguyen;
 				TargetAttributes = {
 					7377D6521C9AA8DE005BF7AB = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = HQGEN8T35Z;
 					};
 					73963BAB1CC604F700567DE3 = {
 						CreatedOnToolsVersion = 7.3;
@@ -263,6 +267,7 @@
 				73963BC91CC67A8700567DE3 /* CalendarViewController.swift in Sources */,
 				73963BCE1CC68BD800567DE3 /* UIFont+.swift in Sources */,
 				73963BBA1CC669FA00567DE3 /* ViewController.swift in Sources */,
+				735878AE1D14EB0E0001C9D0 /* Lab.swift in Sources */,
 				7377D6571C9AA8DE005BF7AB /* AppDelegate.swift in Sources */,
 				7377D6691C9AAA52005BF7AB /* KNDate+Utils.swift in Sources */,
 				73963BC51CC67A5A00567DE3 /* AlertStylePresentation.swift in Sources */,
@@ -299,13 +304,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -327,7 +342,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -344,13 +359,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -366,9 +391,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -377,20 +403,24 @@
 		7377D6661C9AA8DF005BF7AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = HQGEN8T35Z;
 				INFOPLIST_FILE = "$(SRCROOT)/DateDiff/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = knguyen.DateDiff;
 				PRODUCT_NAME = DateDiff;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		7377D6671C9AA8DF005BF7AB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = HQGEN8T35Z;
 				INFOPLIST_FILE = "$(SRCROOT)/DateDiff/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = knguyen.DateDiff;
 				PRODUCT_NAME = DateDiff;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

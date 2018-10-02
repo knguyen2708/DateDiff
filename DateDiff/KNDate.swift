@@ -76,33 +76,33 @@ extension KNDate {
         let nsstring = string as NSString
         
         // Parse the string
-        let matches = KNDate.dateFormatRegex.matchesInString(string, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, string.unicodeScalars.count))
+        let matches = KNDate.dateFormatRegex.matches(in: string, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, string.unicodeScalars.count))
         
         // If regex doesn't match, it means `string` doesn't conform to dd/MM/yyyy format.
         guard let match = matches.first else { throw KNError(info: "string must conform to date format dd/MM/yyyy") }
         
         // Extract date components
         // Conversion from string -> int won't fail because of the regex pattern
-        let dayRange = match.rangeAtIndex(1)
-        let dayString = nsstring.substringWithRange(dayRange)
-        let day = KNDate.integerFormatter.numberFromString(dayString)!.integerValue
+        let dayRange = match.range(at: 1)
+        let dayString = nsstring.substring(with: dayRange)
+        let day = KNDate.integerFormatter.number(from: dayString)!.intValue
         
-        let monthRange = match.rangeAtIndex(2)
-        let monthString = nsstring.substringWithRange(monthRange)
-        let month = KNDate.integerFormatter.numberFromString(monthString)!.integerValue
+        let monthRange = match.range(at: 2)
+        let monthString = nsstring.substring(with: monthRange)
+        let month = KNDate.integerFormatter.number(from: monthString)!.intValue
         
-        let yearRange = match.rangeAtIndex(3)
-        let yearString = nsstring.substringWithRange(yearRange)
-        let year = KNDate.integerFormatter.numberFromString(yearString)!.integerValue
+        let yearRange = match.range(at: 3)
+        let yearString = nsstring.substring(with: yearRange)
+        let year = KNDate.integerFormatter.number(from: yearString)!.intValue
         
         try self.init(day: day, month: month, year: year)
     }
     
     // Regexes and formatters are expensive to create. Make sure they are created only once.
     // Static constants in Swift are lazy-initialized and created in a thread-safe manner.
-    private static let dateFormatRegex: NSRegularExpression = try! NSRegularExpression(pattern: "^(\\d{1,2})/(\\d{1,2})/(\\d{4})$", options: .CaseInsensitive)
-    private static let integerFormatter: NSNumberFormatter = {
-        let formatter = NSNumberFormatter()
+    private static let dateFormatRegex: NSRegularExpression = try! NSRegularExpression(pattern: "^(\\d{1,2})/(\\d{1,2})/(\\d{4})$", options: .caseInsensitive)
+    private static let integerFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
         return formatter
     }()
 }

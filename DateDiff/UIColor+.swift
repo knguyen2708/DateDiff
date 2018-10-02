@@ -61,6 +61,6 @@ extension UIColor {
      Constructs a color by lightening the receiver.
      */
     public func colorByLightening(amount: CGFloat) -> UIColor {
-        return colorByDarkening(-amount)
+        return colorByDarkening(amount: -amount)
     }
 }

@@ -1,11 +1,3 @@
-//
-//  CalendarViewController.swift
-//  BCG_Test
-//
-//  Created by Khanh Nguyen on 20/04/2016.
-//  Copyright © 2016 knguyen. All rights reserved.
-//
-
 import UIKit
 
 /**
@@ -34,10 +26,10 @@ class CalendarViewController: UIViewController {
      */
     var date: KNDate {
         get {
-            return try! KNDate(fromNSDate: datePicker.date)
+            return try! KNDate(fromSwiftDate: datePicker.date)
         }
         set {
-            datePicker.date = newValue.toNSDate()
+            datePicker.date = newValue.toSwiftDate()
         }
     }
     
@@ -46,12 +38,12 @@ class CalendarViewController: UIViewController {
         
         loadViewIfNeeded()
     
-        transitioningDelegate = AlertStyleTransitioningManager.defaultInstance
-        modalPresentationStyle = .Custom
+        self.modalPresentationStyle = .custom
+        self.transitioningDelegate = AlertStyleTransitioningManager.defaultInstance
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override var preferredContentSize: CGSize {
@@ -69,23 +61,23 @@ class CalendarViewController: UIViewController {
         datePickerView.layer.cornerRadius = 4
         datePickerView.clipsToBounds = true
         
-        datePicker.minimumDate = KNDate.minDate.toNSDate()
-        datePicker.maximumDate = KNDate.maxDate.toNSDate()
-        datePicker.datePickerMode = .Date
+        datePicker.minimumDate = KNDate.minDate.toSwiftDate()
+        datePicker.maximumDate = KNDate.maxDate.toSwiftDate()
+        datePicker.datePickerMode = .date
         
-        for z in [cancelButton, doneButton] {
+        for z in [cancelButton!, doneButton!] {
             z.layer.cornerRadius = 4
             z.clipsToBounds = true
         }
     }
     
     @IBAction func cancelTapped() {
-        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        presentingViewController?.dismiss(animated: true, completion: nil)
         delegate?.calendarViewControllerDidCancel(self)
     }
     
     @IBAction func doneTapped() {
-        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        presentingViewController?.dismiss(animated: true, completion: nil)
         delegate?.calendarViewControllerDidFinish(self)
     }
     
@@ -95,12 +87,12 @@ protocol CalendarViewControllerDelegate: class {
     /**
      Invoked when user taps "Done". The selected date can be retrieved from `date` property of the view controller.
      */
-    func calendarViewControllerDidFinish(viewController: CalendarViewController)
+    func calendarViewControllerDidFinish(_ viewController: CalendarViewController)
 
     /**
      Invoked when user taps "Cancel".
      */
-    func calendarViewControllerDidCancel(viewController: CalendarViewController)
+    func calendarViewControllerDidCancel(_ viewController: CalendarViewController)
 }
 
 // Conversions to/from NSDate
@@ -109,19 +101,19 @@ extension KNDate {
     /**
      Constructs an `NSDate` from the receiver.
      */
-    func toNSDate() -> NSDate {
-        let f = NSDateFormatter()
+    func toSwiftDate() -> Date {
+        let f = DateFormatter()
         f.dateFormat = "d/M/yyyy"
-        return f.dateFromString(self.description)!
+        return f.date(from: self.description)!
     }
     
     /**
      Constructs a `KNDate` from the an `NSDate`.
      */
-    init(fromNSDate nsdate: NSDate) throws {
-        let cal = NSCalendar.currentCalendar()
-        let comps = cal.components([.Day, .Month, .Year], fromDate: nsdate)
+    init(fromSwiftDate date: Date) throws {
+        let cal = Calendar.current
+        let comps = cal.dateComponents([.day, .month, .year], from: date)
         
-        try self.init(day: comps.day, month: comps.month, year: comps.year)
+        try self.init(day: comps.day!, month: comps.month!, year: comps.year!)
     }
 }

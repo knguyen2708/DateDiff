@@ -21,8 +21,8 @@ class ViewController: UIViewController, CalendarViewControllerDelegate {
     private var fromDate: KNDate = try! KNDate(day: 27, month: 8, year: 1985)
     private var toDate: KNDate = try! KNDate(day: 20, month: 4, year: 2016)
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewDidLoad() {
@@ -34,25 +34,25 @@ class ViewController: UIViewController, CalendarViewControllerDelegate {
         syncDates()
     }
     
-    func fromTapped() {
+    @objc func fromTapped() {
         let cal = CalendarViewController()
         cal.date = fromDate
         cal.tag = "from"
         cal.delegate = self
         
-        presentViewController(cal, animated: true, completion: nil)
+        present(cal, animated: true, completion: nil)
     }
     
-    func toTapped() {
+    @objc func toTapped() {
         let cal = CalendarViewController()
         cal.date = toDate
         cal.tag = "to"
         cal.delegate = self
         
-        presentViewController(cal, animated: true, completion: nil)
+        present(cal, animated: true, completion: nil)
     }
     
-    func calendarViewControllerDidFinish(cal: CalendarViewController) {
+    func calendarViewControllerDidFinish(_ cal: CalendarViewController) {
         // Update either from or to date
         
         switch cal.tag! {
@@ -69,7 +69,7 @@ class ViewController: UIViewController, CalendarViewControllerDelegate {
         }
     }
     
-    func calendarViewControllerDidCancel(cal: CalendarViewController) {
+    func calendarViewControllerDidCancel(_ cal: CalendarViewController) {
         // Do nothing
     }
     
@@ -78,7 +78,7 @@ class ViewController: UIViewController, CalendarViewControllerDelegate {
         toLabel.text = toDate.description
         
         do {
-            let days = try KNDate.differenceInDays(fromDate: fromDate, toDate: toDate)
+            let days = try KNDate.differenceInDays(from: fromDate, to: toDate)
             
             let noun = days != 1 ? "days" : "day"
             daysLabel.text = "\(days) \(noun)"

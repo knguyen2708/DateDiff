@@ -11,7 +11,7 @@ import Foundation
 /**
  Represents an error in KN.
  */
-class KNError: ErrorType {
+class KNError: Error {
     var _domain: String { return "KN" }
     var _code: Int { return -1 }
 

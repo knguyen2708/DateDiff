@@ -16,7 +16,7 @@ extension KNDate {
      
      NOTE: requiring that `fromDate` must be earlier than `toDate` ensures the function's clarity and avoid confusions or misuses.
      */
-    static func differenceInDays(fromDate fromDate: KNDate, toDate: KNDate) throws -> Int {
+    static func differenceInDays(from fromDate: KNDate, to toDate: KNDate) throws -> Int {
         /*
          Algorithm idea:
          
@@ -36,7 +36,8 @@ extension KNDate {
         
         // Find days of full years
         var count: Int = 0
-        for year in (fromDate.year + 1).stride(to: toDate.year - 1, by: 1) {
+        
+        for year in stride(from: fromDate.year + 1, through: toDate.year - 1, by: 1) {
             count += KNDate.numberOfDaysInYear(year)
         }
         
@@ -44,18 +45,18 @@ extension KNDate {
         if fromDate.year < toDate.year { // Different years
             
             // Count full months in fromDate
-            for month in (fromDate.month + 1).stride(to: 12, by: 1) {
+            for month in stride(from: fromDate.month + 1, through: 12, by: 1) {
                 count += KNDate.numberOfDaysInMonth(month, year: fromDate.year)
             }
             
             // Count full months in toDate
-            for month in 1.stride(to: toDate.month - 1, by: 1) {
+            for month in stride(from: 1, through: toDate.month - 1, by: 1) {
                 count += KNDate.numberOfDaysInMonth(month, year: toDate.year)
             }
             
         } else if fromDate.year == toDate.year { // Same year
             // Count months in [fromDate.month + 1, toDate.month - 1]
-            for month in (fromDate.month + 1).stride(to: toDate.month - 1, by: 1) {
+            for month in stride(from: fromDate.month + 1, through: toDate.month - 1, by: 1) {
                 count += KNDate.numberOfDaysInMonth(month, year: fromDate.year)
             }
             
@@ -96,14 +97,14 @@ extension KNDate {
     /**
      Returns number of days in a year.
      */
-    static func numberOfDaysInYear(year: Int) -> Int {
+    static func numberOfDaysInYear(_ year: Int) -> Int {
         return isLeapYear(year) ? 366 : 365
     }
     
     /**
      Returns number of days in a month.
      */
-    static func numberOfDaysInMonth(month: Int, year: Int) -> Int {
+    static func numberOfDaysInMonth(_ month: Int, year: Int) -> Int {
         switch month {
         case 1, 3, 5, 7, 8, 10, 12: return 31
         case 4, 6, 9, 11: return 30
@@ -115,7 +116,7 @@ extension KNDate {
     /**
      Returns `true` iff `year` is leap.
      */
-    static func isLeapYear(year: Int) -> Bool {
+    static func isLeapYear(_ year: Int) -> Bool {
         return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
     }
     

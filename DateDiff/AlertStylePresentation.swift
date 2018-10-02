@@ -1,11 +1,3 @@
-//
-//  AlertPresentationController.swift
-//  EzyGraphs
-//
-//  Created by Khanh Nguyen on 7/16/15.
-//  Copyright © 2015 kgiants. All rights reserved.
-//
-
 import UIKit
 
 /**
@@ -14,15 +6,15 @@ import UIKit
 class AlertStyleTransitioningManager: NSObject, UIViewControllerTransitioningDelegate {
     static let defaultInstance = AlertStyleTransitioningManager()
     
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-        return AlertStylePresentationController(presentedViewController: presented, presentingViewController: presenting)
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return AlertStylePresentationController(presentedViewController: presented, presenting: presenting)
     }
     
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return AlertStyleTransitionPresentationAnimator()
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return AlertStyleTransitionDismissalAnimator()
     }
 }
@@ -30,18 +22,18 @@ class AlertStyleTransitioningManager: NSObject, UIViewControllerTransitioningDel
 class AlertStylePresentationController: UIPresentationController {
     private var dimView: UIView!
     
-    override init(presentedViewController: UIViewController, presentingViewController: UIViewController) {
-        super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
+    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         
         dimView = UIView()
         dimView.backgroundColor = UIColor(hex: 0x000000, alpha: 0.5)
         
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "dimViewTapped")
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dimViewTapped))
         dimView.addGestureRecognizer(tapRecognizer)
     }
     
-    func dimViewTapped() {
-        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+    @objc func dimViewTapped() {
+        presentingViewController.dismiss(animated: true, completion: nil)
     }
     
     override func presentationTransitionWillBegin() {
@@ -50,36 +42,36 @@ class AlertStylePresentationController: UIPresentationController {
         // Dim view
         dimView.frame = containerView.bounds
         dimView.alpha = 0
-        containerView.insertSubview(dimView, atIndex: 0)
+        containerView.insertSubview(dimView, at: 0)
         
-        presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ (coordinatorContext) -> Void in
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (coordinatorContext) -> Void in
             self.dimView.alpha = 1
             
         }, completion: nil)
         
         // Slide up
-        let presentedView = self.presentedView()!
-        presentedView.frame = frameOfPresentedViewInContainerView()
-        presentedView.transform = CGAffineTransformMakeTranslation(0, presentedView.frame.height)
+        let presentedView = self.presentedView!
+        presentedView.frame = self.frameOfPresentedViewInContainerView
+        presentedView.transform = CGAffineTransform(translationX: 0, y: presentedView.frame.height)
 
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-            presentedView.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: { () -> Void in
+            presentedView.transform = .identity
             
         }) { (finished) -> Void in
         }
     }
     
     override func dismissalTransitionWillBegin() {
-        presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ (coordinatorContext) -> Void in
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (coordinatorContext) -> Void in
             self.dimView.alpha = 0
         }, completion: nil)
         
         // Slide down
-        let presentedView = self.presentedView()!
-        presentedView.frame = frameOfPresentedViewInContainerView()
+        let presentedView = self.presentedView!
+        presentedView.frame = self.frameOfPresentedViewInContainerView
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-            presentedView.transform = CGAffineTransformMakeTranslation(0, presentedView.frame.height + 20) // 20 to accommodate for the gap when horizontal size class is Regular
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: { () -> Void in
+            presentedView.transform = CGAffineTransform(translationX: 0, y: presentedView.frame.height + 20) // 20 to accommodate for the gap when horizontal size class is Regular
         }) { (finished) -> Void in
             
         }
@@ -87,13 +79,13 @@ class AlertStylePresentationController: UIPresentationController {
     
     override func containerViewWillLayoutSubviews() {
         dimView.frame = containerView!.bounds
-        presentedView()?.frame = frameOfPresentedViewInContainerView()
+        presentedView?.frame = self.frameOfPresentedViewInContainerView
     }
-
-    override func sizeForChildContentContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
+    
+    override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
         let containerView = self.containerView!
         
-        if presentingViewController.traitCollection.horizontalSizeClass == .Compact {
+        if presentingViewController.traitCollection.horizontalSizeClass == .compact {
             return CGSize(width: containerView.frame.width, height: presentedViewController.preferredContentSize.height)
             
         } else {
@@ -101,20 +93,20 @@ class AlertStylePresentationController: UIPresentationController {
         }
     }
     
-    override func frameOfPresentedViewInContainerView() -> CGRect {
+    override var frameOfPresentedViewInContainerView: CGRect {
         let bounds = containerView!.bounds
         
         let contentContainer = presentedViewController
-
-        let sz = sizeForChildContentContainer(contentContainer, withParentContainerSize: bounds.size)
-
-        if presentingViewController.traitCollection.horizontalSizeClass == .Compact {
+        
+        let sz = size(forChildContentContainer: contentContainer, withParentContainerSize: bounds.size)
+        
+        if presentingViewController.traitCollection.horizontalSizeClass == .compact {
             return CGRect(
                 x: 0,
                 y: bounds.height - sz.height,
                 width: sz.width,
                 height: sz.height
-            ).integral
+                ).integral
             
         } else {
             return CGRect(
@@ -122,26 +114,26 @@ class AlertStylePresentationController: UIPresentationController {
                 y: bounds.height - sz.height - 20,
                 width: sz.width,
                 height: sz.height
-            ).integral
+                ).integral
         }
     }
 }
 
 class AlertStyleTransitionPresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.3
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.25
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        let containerView = transitionContext.containerView()!
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        let containerView = transitionContext.containerView
         
-        let animationDuration = transitionDuration(transitionContext)
+        let animationDuration = transitionDuration(using: transitionContext)
         
         containerView.addSubview(toViewController.view)
         
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
-            toViewController.view.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: animationDuration, animations: { () -> Void in
+            toViewController.view.transform = .identity
             
         }, completion: { (finished) -> Void in
             transitionContext.completeTransition(finished)
@@ -150,20 +142,20 @@ class AlertStyleTransitionPresentationAnimator: NSObject, UIViewControllerAnimat
 }
 
 class AlertStyleTransitionDismissalAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.3
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.25
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         // let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let animationDuration = self .transitionDuration(transitionContext)
+        let animationDuration = self .transitionDuration(using: transitionContext)
         
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, animations: { () -> Void in
             // fromViewController.view.alpha = 0.0
             // fromViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1)
             
         }) { (finished) -> Void in
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
 }
